@@ -27,7 +27,7 @@ gem 'attachinary'
 
 group :test, :development do
   gem 'minitest'
-  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails', '~> 2.14.0.rc1'
 end
 
 group :test do

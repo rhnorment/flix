@@ -56,20 +56,4 @@ describe "Viewing the list of movies" do
     expect(page).not_to have_text(movie.title)
   end
   
-  it "shows the movies in order of date" do
-    movie1 = Movie.new(movie_attributes(title: "Movie 1"))
-    movie1.released_on = 2.days.ago
-    movie1.save!
-    
-    movie2 = Movie.new(movie_attributes(title: "Movie 2"))
-    movie2.released_on = 1.day.ago
-    movie2.save!
-    
-    visit movies_url  
-  
-    movies_all = all(".movie")
-    expect(movies_all[0]["id"]).to eq("movie_#{movie2.id}")
-    expect(movies_all[1]["id"]).to eq("movie_#{movie1.id}")
-  end
-  
 end
