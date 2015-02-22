@@ -14,6 +14,8 @@ class Movie < ActiveRecord::Base
   has_many      :reviews,     dependent: :destroy
   has_many      :favorites,   dependent: :destroy
   has_many      :fans,        through: :favorites,  source: :user
+  has_many      :characterizations, dependent: :destroy
+  has_many      :genres,  through: :characterizations
 
   def self.hits
     where('total_gross >= 300000000').order(total_gross: :desc)
