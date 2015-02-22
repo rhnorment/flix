@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe 'editing a movie' do
 
+  before do
+    admin = User.create!(user_attributes(admin: true))
+    sign_in(admin)
+  end
+
   it 'updates a movies and shows the movie updated details' do
 
     movie = Movie.create(movie_attributes)

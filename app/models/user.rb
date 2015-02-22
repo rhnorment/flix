@@ -2,11 +2,11 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  validates         :name,  :email, presence: true
+  validates         :name,    :email, presence: true
+  validates         :email,   format: { with: /\A\S+@\S+\z/ }
+  validates         :email,   uniqueness: { case_sensitive: false }
 
-  validates         :email, format: { with: /\A\S+@\S+\z/ }
-
-  validates         :email, uniqueness: { case_sensitive: false }
+  has_many          :reviews, dependent: :destroy
 
   def self.authenticate(email, password)
     user = User.find_by(email: email)

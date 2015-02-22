@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205011615) do
+ActiveRecord::Schema.define(version: 20150222155345) do
 
   create_table "movies", force: true do |t|
     t.string   "title"
@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20150205011615) do
   end
 
   create_table "reviews", force: true do |t|
-    t.string   "name"
     t.integer  "stars"
     t.string   "comment"
     t.integer  "movie_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "reviews", ["movie_id"], name: "index_reviews_on_movie_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150205011615) do
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",           default: false
   end
 
 end

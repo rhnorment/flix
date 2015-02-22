@@ -7,9 +7,11 @@ class Movie < ActiveRecord::Base
   validates     :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates     :image_file_name, allow_blank: true, format: {
       with:    /\w+.(gif|jpg|png)\z/i,
-      message: "must reference a GIF, JPG, or PNG image"
+      message: 'must reference a GIF, JPG, or PNG image'
   }
-  validates     :rating, inclusion: { in: RATINGS }
+  validates     :rating,  inclusion: { in: RATINGS }
+
+  has_many      :reviews, dependent: :destroy
 
   def self.hits
     where('total_gross >= 300000000').order(total_gross: :desc)
