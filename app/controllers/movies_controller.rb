@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
 
 
   def index
-    @movies = Movie.released
+    @movies = Movie.send(movies_scope)
   end
 
   def show
@@ -54,6 +54,14 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:title, :description, :rating, :released_on, :total_gross, :cast,
                                     :director, :duration, :image_file_name, genre_ids: [])
+    end
+
+    def movies_scope
+      if params[:scope].in? %w(hits flops upcoming recent)
+        params[:scope]
+      else
+        :released
+      end
     end
 
 end
