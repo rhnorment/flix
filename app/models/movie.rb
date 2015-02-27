@@ -3,6 +3,8 @@ class Movie < ActiveRecord::Base
   RATINGS =     %w(G PG PG-13 R NC-17)
 
   validates     :title, :released_on, :duration,  presence: true
+  validates     :title, uniqueness: true
+  validates     :slug,  uniqueness: true
   validates     :description, length: { minimum: 25 }
   validates     :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates     :image_file_name, allow_blank: true, format: {
@@ -24,6 +26,8 @@ class Movie < ActiveRecord::Base
   scope         :rated,       ->(rating) { released.where(rating: rating) }
   scope         :recent,      ->(max=5) { released.limit(max) }
 
+  before_validation   :generate_slug
+
   def self.recently_added
     order('created_at desc').limit(3)
   end
@@ -34,6 +38,14 @@ class Movie < ActiveRecord::Base
 
   def average_stars
     reviews.average(:stars)
+  end
+
+  def to_param
+    slug
+  end
+
+  def generate_slug
+    self.slug ||= title.parameterize if title
   end
 
 end

@@ -1,51 +1,51 @@
 require 'spec_helper'
 
-describe "Filtering movies" do
+describe 'Filtering movies' do
 
-  it "shows hit movies" do
+  it 'shows hit movies' do
     movie = Movie.create!(movie_attributes(released_on: 1.day.ago, total_gross: 300_000_000))
 
     visit movies_url
 
-    click_link "Hits"
+    click_link 'Hits'
 
-    expect(current_path).to eq("/movies/filter/hits")
+    expect(current_path).to eq('/movies/hits')
 
     expect(page).to have_text(movie.title)
   end
 
-  it "shows flop movies" do
+  it 'shows flop movies' do
     movie = Movie.create!(movie_attributes(released_on: 1.day.ago, total_gross: 49_000_000))
 
     visit movies_url
 
-    click_link "Flops"
+    click_link 'Flops'
 
-    expect(current_path).to eq("/movies/filter/flops")
+    expect(current_path).to eq('/movies/flops')
 
     expect(page).to have_text(movie.title)
   end
 
-  it "shows upcoming movies" do
+  it 'shows upcoming movies' do
     movie = Movie.create!(movie_attributes(released_on: 1.day.from_now))
 
     visit movies_url
 
-    click_link "Upcoming"
+    click_link 'Upcoming'
 
-    expect(current_path).to eq("/movies/filter/upcoming")
+    expect(current_path).to eq('/movies/upcoming')
 
     expect(page).to have_text(movie.title)
   end
 
-  it "shows recent movies" do
+  it 'shows recent movies' do
     movie = Movie.create!(movie_attributes(released_on: 1.day.ago))
 
     visit movies_url
 
-    click_link "Recent"
+    click_link 'Recent'
 
-    expect(current_path).to eq("/movies/filter/recent")
+    expect(current_path).to eq('/movies/recent')
 
     expect(page).to have_text(movie.title)
   end
